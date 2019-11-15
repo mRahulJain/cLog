@@ -1,14 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragment.SettingFrag">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
-</FrameLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:elevation="@dimen/cardview_compat_inset_shadow"
+                android:layout_gravity="top"
+                android:orientation="vertical"
+                android:background="@drawable/background_settings"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_gravity="center"
+                    android:padding="14dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/user"
+                    android:background="@drawable/background_bottom_border"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/bad_script"
+                    android:text="Hey there!"
+                    android:padding="4dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="24sp" />
+                <LinearLayout
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <ImageButton
+                            android:elevation="@dimen/cardview_compat_inset_shadow"
+                            android:outlineSpotShadowColor="@android:color/black"
+                            android:background="@drawable/background_setting_buttons"
+                            android:src="@drawable/id_card_1"
+                            android:layout_width="100dp"
+                            android:id="@+id/attendance"
+                            android:layout_margin="10dp"
+                            android:layout_height="100dp"/>
+                        <TextView
+                            android:layout_gravity="center"
+                            android:text="Attendance"
+                            android:textColor="@android:color/black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <ImageButton
+                            android:elevation="@dimen/cardview_compat_inset_shadow"
+                            android:outlineSpotShadowColor="@android:color/black"
+                            android:background="@drawable/background_setting_buttons"
+                            android:src="@drawable/expenses_1"
+                            android:layout_width="100dp"
+                            android:id="@+id/expense"
+                            android:layout_margin="10dp"
+                            android:layout_height="100dp"/>
+                        <TextView
+                            android:layout_gravity="center"
+                            android:text="Expense"
+                            android:textColor="@android:color/black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageButton
+                        android:elevation="@dimen/cardview_compat_inset_shadow"
+                        android:outlineSpotShadowColor="@android:color/black"
+                        android:background="@drawable/background_setting_buttons"
+                        android:src="@drawable/star"
+                        android:id="@+id/rateUs"
+                        android:layout_gravity="center"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"/>
+                    <TextView
+                        android:layout_gravity="center"
+                        android:text="Rate us"
+                        android:padding="10dp"
+                        android:textColor="@android:color/black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|bottom"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/background_setting_buttons"
+                    android:fontFamily="@font/frank_ruhl_libre"
+                    android:paddingLeft="30dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="30dp"
+                    android:paddingBottom="10dp"
+                    android:text="Get cLog Plus"
+                    android:textColor="#FECB8B"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+</LinearLayout>

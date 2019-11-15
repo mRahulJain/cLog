@@ -1,17 +1,13 @@
-package com.clogg.clog
+package com.clogg.clog.Activities
 
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.clogg.clog.Fragment.AttendanceFrag
 import com.clogg.clog.Fragment.ExpenseFrag
 import com.clogg.clog.Fragment.SettingFrag
+import com.clogg.clog.R
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.AttendanceSettingAct"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="@android:color/white"
+        android:theme="@style/Theme.MyFancyTheme">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbarAttendanceSettings"
+                android:layout_width="match_parent"
+                android:theme="@style/ThemeOverlay.AppCompat.Light"
+                android:layout_height="?attr/actionBarSize">
+            </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:paddingLeft="10dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:fontFamily="@font/source_serif_pro"
+                android:text="Subject"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+            <EditText
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="20dp"
+                android:theme="@style/editTextTheme"
+                android:textSize="18sp"
+                android:fontFamily="@font/source_serif_pro"
+                android:hint="Add subject Name"
+                android:background="@android:color/transparent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:layout_gravity="center"
+                android:text="Add"
+                android:layout_marginBottom="50dp"
+                android:textAllCaps="false"
+                android:background="#FECB8B"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.robertlevonyan.views.expandable.Expandable
+                    android:id="@+id/expandable1"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <include
+                        android:id="@+id/header"
+                        layout="@layout/header_view" />
+                    <include
+                        android:id="@+id/content"
+                        layout="@layout/content_view" />
+                </com.robertlevonyan.views.expandable.Expandable>
+                <com.robertlevonyan.views.expandable.Expandable
+                    android:id="@+id/expandable2"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/background_attendance_database"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <include
+                        android:id="@+id/header"
+                        layout="@layout/header_view" />
+                    <include
+                        android:id="@+id/content"
+                        layout="@layout/content_view" />
+                </com.robertlevonyan.views.expandable.Expandable>
+                <com.robertlevonyan.views.expandable.Expandable
+                    android:id="@+id/expandable3"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/background_attendance_database"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <include
+                        android:id="@+id/header"
+                        layout="@layout/header_view" />
+                    <include
+                        android:id="@+id/content"
+                        layout="@layout/content_view" />
+                </com.robertlevonyan.views.expandable.Expandable>
+                <com.robertlevonyan.views.expandable.Expandable
+                    android:id="@+id/expandable4"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/background_attendance_database"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <include
+                        android:id="@+id/header"
+                        layout="@layout/header_view" />
+                    <include
+                        android:id="@+id/content"
+                        layout="@layout/content_view" />
+                </com.robertlevonyan.views.expandable.Expandable>
+                <com.robertlevonyan.views.expandable.Expandable
+                    android:id="@+id/expandable5"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/background_attendance_database"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <include
+                        android:id="@+id/header"
+                        layout="@layout/header_view" />
+                    <include
+                        android:id="@+id/content"
+                        layout="@layout/content_view" />
+                </com.robertlevonyan.views.expandable.Expandable>
+                <com.robertlevonyan.views.expandable.Expandable
+                    android:id="@+id/expandable6"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/background_attendance_database"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <include
+                        android:id="@+id/header"
+                        layout="@layout/header_view" />
+                    <include
+                        android:id="@+id/content"
+                        layout="@layout/content_view" />
+                </com.robertlevonyan.views.expandable.Expandable>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

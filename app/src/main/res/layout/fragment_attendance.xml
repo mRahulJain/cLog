@@ -5,10 +5,35 @@
     android:layout_height="match_parent"
     tools:context=".Fragment.AttendanceFrag">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <LinearLayout
+        android:id="@+id/emptyDatabase"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_gravity="center"
+            android:padding="14dp"
+            android:src="@drawable/start_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:text="There isn't any subject added yet!"
+            android:fontFamily="@font/bad_script"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:text="Add here!"
+            android:textAllCaps="false"
+            android:textColor="#FECB8B"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:id="@+id/addSubject"
+            android:background="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 
 </FrameLayout>
