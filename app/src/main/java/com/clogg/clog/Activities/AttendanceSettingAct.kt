@@ -24,19 +24,27 @@ import kotlin.collections.ArrayList
 class AttendanceSettingAct : AppCompatActivity(),
     DatePickerDialog.OnDateSetListener {
 
-    val calendar = Calendar.getInstance()
+    var dateType : String = ""
 
     override fun onDateSet(p0: DatePicker?, year: Int, month: Int, date: Int) {
-        calendar.set(Calendar.YEAR , year)
-        calendar.set(Calendar.MONTH, month)
-        calendar.set(Calendar.DAY_OF_MONTH, date)
-        startDate.text = "$date/$month/$year"
-        startDate.isVisible = true
-        subjects = db.SubjectNameDao().getSubjects()
-        for(subject in subjects) {
-            db.SubjectNameDao().updateStartDate(date.toString(), subject.name)
-            db.SubjectNameDao().updateStartMonth(month.toString(), subject.name)
-            db.SubjectNameDao().updateStartYear(year.toString(), subject.name)
+        if(dateType == "start") {
+            startDate.text = "$date/$month/$year"
+            startDate.isVisible = true
+            subjects = db.SubjectNameDao().getSubjects()
+            for(subject in subjects) {
+                db.SubjectNameDao().updateStartDate(date.toString(), subject.name)
+                db.SubjectNameDao().updateStartMonth(month.toString(), subject.name)
+                db.SubjectNameDao().updateStartYear(year.toString(), subject.name)
+            }
+        } else {
+            endDate.text = "$date/$month/$year"
+            endDate.isVisible = true
+            subjects = db.SubjectNameDao().getSubjects()
+            for(subject in subjects) {
+                db.SubjectNameDao().updateEndDate(date.toString(), subject.name)
+                db.SubjectNameDao().updateEndtMonth(month.toString(), subject.name)
+                db.SubjectNameDao().updateEndYear(year.toString(), subject.name)
+            }
         }
     }
 
@@ -68,8 +76,15 @@ class AttendanceSettingAct : AppCompatActivity(),
         expandable6.dayName.text = "Saturday"
         subjects = db.SubjectNameDao().getSubjects()
         for(subject in subjects) {
-            startDate.isVisible = true
-            startDate.text = "${subject.startDate}/${subject.startMonth}/${subject.startYear}"
+            if(subject.startDate != "") {
+                startDate.isVisible = true
+                startDate.text = "${subject.startDate}/${subject.startMonth}/${subject.startYear}"
+            }
+
+            if(subject.endDate != "") {
+                endDate.isVisible = true
+                endDate.text = "${subject.endDate}/${subject.endMonth}/${subject.endYear}"
+            }
             expandable1.emptySubjectList.isVisible = false
             expandable2.emptySubjectList.isVisible = false
             expandable3.emptySubjectList.isVisible = false
@@ -127,6 +142,12 @@ class AttendanceSettingAct : AppCompatActivity(),
         }
 
         startTimeSession.setOnClickListener {
+            dateType = "start"
+            val datePicker = DatePickerFragment(this)
+            datePicker.show(supportFragmentManager, "Date picker")
+        }
+        endTimeSession.setOnClickListener {
+            dateType = "end"
             val datePicker = DatePickerFragment(this)
             datePicker.show(supportFragmentManager, "Date picker")
         }
@@ -152,11 +173,13 @@ class AttendanceSettingAct : AppCompatActivity(),
                 endMonth = "",
                 endYear = ""
             )
-            if(subjects.contains(subjectName)) {
-                Toast.makeText(this,
-                    "Already present",
-                    Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
+            for(subject in subjects) {
+                if(subject.name == subName.text.toString()) {
+                    Toast.makeText(this,
+                        "Already present",
+                        Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
             }
 
             db.SubjectNameDao().insertRow(subjectName)

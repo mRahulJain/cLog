@@ -205,8 +205,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
-
-
             <TextView
                 android:layout_marginTop="10dp"
                 android:paddingLeft="10dp"
@@ -218,17 +216,35 @@
                 android:text="Set session end time"
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
-            <Button
-                android:layout_gravity="center"
-                android:text="Set"
+            <LinearLayout
+                android:elevation="@dimen/cardview_compat_inset_shadow"
+                android:layout_marginBottom="10dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginBottom="10dp"
-                android:textAllCaps="false"
-                android:id="@+id/endTimeSession"
-                android:background="@drawable/background_attendance_database_2"
+                android:background="@drawable/background_attendance_database"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content">
+                <Button
+                    android:layout_gravity="center"
+                    android:text="Set"
+                    android:textAllCaps="false"
+                    android:id="@+id/endTimeSession"
+                    android:background="@drawable/background_attendance_database_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/endDate"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:text="Your date will be displayed here"
+                    android:fontFamily="@font/source_serif_pro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
             <TextView
                 android:layout_gravity="center"
                 android:textSize="11sp"

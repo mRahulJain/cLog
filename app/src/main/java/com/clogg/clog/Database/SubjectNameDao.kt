@@ -35,4 +35,11 @@ interface SubjectNameDao {
     fun updateStartMonth(month : String, name : String)
     @Query("Update SubjectName SET startYear = :year WHERE name = :name")
     fun updateStartYear(year : String, name : String)
+
+    @Query("Update SubjectName SET endDate = :date WHERE name = :name")
+    fun updateEndDate(date : String, name : String)
+    @Query("Update SubjectName SET endMonth = :month WHERE name = :name")
+    fun updateEndtMonth(month : String, name : String)
+    @Query("Update SubjectName SET endYear = :year WHERE name = :name")
+    fun updateEndYear(year : String, name : String)
 }

@@ -1,10 +1,12 @@
 package com.clogg.clog.Fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.clogg.clog.Activities.AttendanceSettingAct
 
 import com.clogg.clog.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -20,9 +22,8 @@ class AttendanceFrag : Fragment() {
         val view = inflater.inflate(R.layout.fragment_attendance, container, false)
 
         view!!.addSubject.setOnClickListener {
-            fragmentManager!!.beginTransaction().replace(R.id.frag, SettingFrag()).commit()
-            val navView: BottomNavigationView = activity!!.findViewById(R.id.nav_view)
-            navView.selectedItemId = R.id.navigation_settings
+            val intent = Intent(view!!.context, AttendanceSettingAct::class.java)
+            startActivity(intent)
         }
 
         return view
