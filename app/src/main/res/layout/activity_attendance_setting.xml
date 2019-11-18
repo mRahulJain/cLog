@@ -18,243 +18,297 @@
                 android:layout_height="?attr/actionBarSize">
             </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
-    <ScrollView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
+        android:id="@+id/swipeRefreshAttendanceDatabase"
         android:layout_height="match_parent">
-        <LinearLayout
-            android:orientation="vertical"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <TextView
-                android:paddingLeft="10dp"
-                android:paddingTop="20dp"
-                android:paddingBottom="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:fontFamily="@font/source_serif_pro"
-                android:text="Subject"
-                android:textColor="@android:color/black"
-                android:textSize="16sp" />
-            <EditText
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="20dp"
-                android:id="@+id/subName"
-                android:theme="@style/editTextTheme"
-                android:textSize="18sp"
-                android:fontFamily="@font/source_serif_pro"
-                android:hint="Add subject Name"
-                android:background="@android:color/transparent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <Button
-                android:layout_gravity="center"
-                android:text="Add"
-                android:layout_marginBottom="50dp"
-                android:textAllCaps="false"
-                android:id="@+id/addSubjectP"
-                android:background="#FECB8B"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:paddingLeft="10dp"
-                android:paddingBottom="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:fontFamily="@font/source_serif_pro"
-                android:text="Set your routine *"
-                android:textColor="@android:color/black"
-                android:textSize="16sp" />
             <LinearLayout
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
+                android:layout_height="match_parent">
                 <TextView
+                    android:paddingLeft="10dp"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:fontFamily="@font/source_serif_pro"
-                    android:layout_gravity="right"
+                    android:text="Subject"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+                <EditText
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="20dp"
+                    android:id="@+id/subName"
+                    android:theme="@style/editTextTheme"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/source_serif_pro"
+                    android:hint="Add subject Name"
+                    android:background="@android:color/transparent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <Button
+                    android:layout_gravity="center"
+                    android:text="Add"
+                    android:layout_marginBottom="50dp"
+                    android:textAllCaps="false"
+                    android:id="@+id/addSubjectP"
+                    android:background="#FECB8B"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/source_serif_pro"
+                    android:text="Set your routine *"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+                <LinearLayout
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:fontFamily="@font/source_serif_pro"
+                        android:layout_gravity="right"
+                        android:textSize="11sp"
+                        android:text="Close and open all tabs to refresh!"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <com.robertlevonyan.views.expandable.Expandable
+                        android:id="@+id/expandable1"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginTop="4dp"
+                        app:exp_animateExpand="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <include
+                            android:id="@+id/header"
+                            layout="@layout/header_view" />
+                        <include
+                            android:id="@+id/content"
+                            layout="@layout/content_view" />
+                    </com.robertlevonyan.views.expandable.Expandable>
+                    <com.robertlevonyan.views.expandable.Expandable
+                        android:id="@+id/expandable2"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginTop="4dp"
+                        app:exp_animateExpand="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <include
+                            android:id="@+id/header"
+                            layout="@layout/header_view" />
+                        <include
+                            android:id="@+id/content"
+                            layout="@layout/content_view" />
+                    </com.robertlevonyan.views.expandable.Expandable>
+                    <com.robertlevonyan.views.expandable.Expandable
+                        android:id="@+id/expandable3"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginTop="4dp"
+                        app:exp_animateExpand="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <include
+                            android:id="@+id/header"
+                            layout="@layout/header_view" />
+                        <include
+                            android:id="@+id/content"
+                            layout="@layout/content_view" />
+                    </com.robertlevonyan.views.expandable.Expandable>
+                    <com.robertlevonyan.views.expandable.Expandable
+                        android:id="@+id/expandable4"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_width="match_parent"
+                        app:exp_animateExpand="true"
+                        android:layout_height="wrap_content">
+                        <include
+                            android:id="@+id/header"
+                            layout="@layout/header_view" />
+                        <include
+                            android:id="@+id/content"
+                            layout="@layout/content_view" />
+                    </com.robertlevonyan.views.expandable.Expandable>
+                    <com.robertlevonyan.views.expandable.Expandable
+                        android:id="@+id/expandable5"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_width="match_parent"
+                        app:exp_animateExpand="true"
+                        android:layout_height="wrap_content">
+                        <include
+                            android:id="@+id/header"
+                            layout="@layout/header_view" />
+                        <include
+                            android:id="@+id/content"
+                            layout="@layout/content_view" />
+                    </com.robertlevonyan.views.expandable.Expandable>
+                    <com.robertlevonyan.views.expandable.Expandable
+                        android:id="@+id/expandable6"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginTop="4dp"
+                        app:exp_animateExpand="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <include
+                            android:id="@+id/header"
+                            layout="@layout/header_view" />
+                        <include
+                            android:id="@+id/content"
+                            layout="@layout/content_view" />
+                    </com.robertlevonyan.views.expandable.Expandable>
+                </LinearLayout>
+                <TextView
+                    android:layout_marginTop="30dp"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/source_serif_pro"
+                    android:text="Set session start time *"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+                <LinearLayout
+                    android:elevation="@dimen/cardview_compat_inset_shadow"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/background_attendance_database"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:layout_gravity="center"
+                        android:text="Set"
+                        android:textAllCaps="false"
+                        android:id="@+id/startTimeSession"
+                        android:background="@drawable/background_attendance_database_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:visibility="gone"
+                        android:id="@+id/startDate"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold"
+                        android:padding="6dp"
+                        android:layout_gravity="center"
+                        android:text="Your date will be displayed here"
+                        android:fontFamily="@font/source_serif_pro"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/source_serif_pro"
+                    android:text="Set session end time"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+                <LinearLayout
+                    android:elevation="@dimen/cardview_compat_inset_shadow"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/background_attendance_database"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:layout_gravity="center"
+                        android:text="Set"
+                        android:textAllCaps="false"
+                        android:id="@+id/endTimeSession"
+                        android:background="@drawable/background_attendance_database_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:visibility="gone"
+                        android:id="@+id/endDate"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold"
+                        android:padding="6dp"
+                        android:layout_gravity="center"
+                        android:text="Your date will be displayed here"
+                        android:fontFamily="@font/source_serif_pro"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <ImageButton
+                            android:elevation="@dimen/cardview_compat_inset_shadow"
+                            android:outlineSpotShadowColor="@android:color/black"
+                            android:src="@drawable/edit"
+                            android:background="@android:color/transparent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:paddingTop="6dp"
+                            android:text="Edit database"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <ImageButton
+                            android:elevation="@dimen/cardview_compat_inset_shadow"
+                            android:outlineSpotShadowColor="@android:color/black"
+                            android:src="@drawable/delete_button"
+                            android:background="@android:color/transparent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:paddingTop="6dp"
+                            android:text="Delete database"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <TextView
+                    android:layout_gravity="center"
                     android:textSize="11sp"
-                    android:text="Close and open all tabs to refresh!"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <com.robertlevonyan.views.expandable.Expandable
-                    android:id="@+id/expandable1"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginTop="4dp"
-                    app:exp_animateExpand="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <include
-                        android:id="@+id/header"
-                        layout="@layout/header_view" />
-                    <include
-                        android:id="@+id/content"
-                        layout="@layout/content_view" />
-                </com.robertlevonyan.views.expandable.Expandable>
-                <com.robertlevonyan.views.expandable.Expandable
-                    android:id="@+id/expandable2"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginTop="4dp"
-                    app:exp_animateExpand="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <include
-                        android:id="@+id/header"
-                        layout="@layout/header_view" />
-                    <include
-                        android:id="@+id/content"
-                        layout="@layout/content_view" />
-                </com.robertlevonyan.views.expandable.Expandable>
-                <com.robertlevonyan.views.expandable.Expandable
-                    android:id="@+id/expandable3"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginTop="4dp"
-                    app:exp_animateExpand="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <include
-                        android:id="@+id/header"
-                        layout="@layout/header_view" />
-                    <include
-                        android:id="@+id/content"
-                        layout="@layout/content_view" />
-                </com.robertlevonyan.views.expandable.Expandable>
-                <com.robertlevonyan.views.expandable.Expandable
-                    android:id="@+id/expandable4"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_width="match_parent"
-                    app:exp_animateExpand="true"
-                    android:layout_height="wrap_content">
-                    <include
-                        android:id="@+id/header"
-                        layout="@layout/header_view" />
-                    <include
-                        android:id="@+id/content"
-                        layout="@layout/content_view" />
-                </com.robertlevonyan.views.expandable.Expandable>
-                <com.robertlevonyan.views.expandable.Expandable
-                    android:id="@+id/expandable5"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_width="match_parent"
-                    app:exp_animateExpand="true"
-                    android:layout_height="wrap_content">
-                    <include
-                        android:id="@+id/header"
-                        layout="@layout/header_view" />
-                    <include
-                        android:id="@+id/content"
-                        layout="@layout/content_view" />
-                </com.robertlevonyan.views.expandable.Expandable>
-                <com.robertlevonyan.views.expandable.Expandable
-                    android:id="@+id/expandable6"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginTop="4dp"
-                    app:exp_animateExpand="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <include
-                        android:id="@+id/header"
-                        layout="@layout/header_view" />
-                    <include
-                        android:id="@+id/content"
-                        layout="@layout/content_view" />
-                </com.robertlevonyan.views.expandable.Expandable>
-            </LinearLayout>
-            <TextView
-                android:layout_marginTop="30dp"
-                android:paddingLeft="10dp"
-                android:paddingBottom="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:fontFamily="@font/source_serif_pro"
-                android:text="Set session start time *"
-                android:textColor="@android:color/black"
-                android:textSize="16sp" />
-            <LinearLayout
-                android:elevation="@dimen/cardview_compat_inset_shadow"
-                android:layout_marginBottom="10dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
-                android:background="@drawable/background_attendance_database"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <Button
-                    android:layout_gravity="center"
-                    android:text="Set"
-                    android:textAllCaps="false"
-                    android:id="@+id/startTimeSession"
-                    android:background="@drawable/background_attendance_database_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-                <TextView
-                    android:visibility="gone"
-                    android:id="@+id/startDate"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="10dp"
                     android:textColor="@android:color/black"
-                    android:textStyle="bold"
-                    android:layout_gravity="center"
-                    android:text="Your date will be displayed here"
                     android:fontFamily="@font/source_serif_pro"
+                    android:text="* fields should be filled"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
-            <TextView
-                android:layout_marginTop="10dp"
-                android:paddingLeft="10dp"
-                android:paddingBottom="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:fontFamily="@font/source_serif_pro"
-                android:text="Set session end time"
-                android:textColor="@android:color/black"
-                android:textSize="16sp" />
-            <LinearLayout
-                android:elevation="@dimen/cardview_compat_inset_shadow"
-                android:layout_marginBottom="10dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
-                android:background="@drawable/background_attendance_database"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <Button
-                    android:layout_gravity="center"
-                    android:text="Set"
-                    android:textAllCaps="false"
-                    android:id="@+id/endTimeSession"
-                    android:background="@drawable/background_attendance_database_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-                <TextView
-                    android:visibility="gone"
-                    android:id="@+id/endDate"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold"
-                    android:layout_gravity="center"
-                    android:text="Your date will be displayed here"
-                    android:fontFamily="@font/source_serif_pro"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
-
-            <TextView
-                android:layout_gravity="center"
-                android:textSize="11sp"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="10dp"
-                android:textColor="@android:color/black"
-                android:fontFamily="@font/source_serif_pro"
-                android:text="* fields should be filled"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-    </ScrollView>
+        </ScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>

@@ -1,8 +1,10 @@
 package com.clogg.clog.Activities
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.MenuItem
 import android.widget.CheckBox
@@ -28,7 +30,7 @@ class AttendanceSettingAct : AppCompatActivity(),
 
     override fun onDateSet(p0: DatePicker?, year: Int, month: Int, date: Int) {
         if(dateType == "start") {
-            startDate.text = "$date/$month/$year"
+            startDate.text = "$date/${month + 1}/$year"
             startDate.isVisible = true
             subjects = db.SubjectNameDao().getSubjects()
             for(subject in subjects) {
@@ -37,7 +39,7 @@ class AttendanceSettingAct : AppCompatActivity(),
                 db.SubjectNameDao().updateStartYear(year.toString(), subject.name)
             }
         } else {
-            endDate.text = "$date/$month/$year"
+            endDate.text = "$date/${month + 1}/$year"
             endDate.isVisible = true
             subjects = db.SubjectNameDao().getSubjects()
             for(subject in subjects) {
@@ -78,12 +80,12 @@ class AttendanceSettingAct : AppCompatActivity(),
         for(subject in subjects) {
             if(subject.startDate != "") {
                 startDate.isVisible = true
-                startDate.text = "${subject.startDate}/${subject.startMonth}/${subject.startYear}"
+                startDate.text = "${subject.startDate}/${subject.startMonth.toInt() + 1}/${subject.startYear}"
             }
 
             if(subject.endDate != "") {
                 endDate.isVisible = true
-                endDate.text = "${subject.endDate}/${subject.endMonth}/${subject.endYear}"
+                endDate.text = "${subject.endDate}/${subject.endMonth.toInt() + 1}/${subject.endYear}"
             }
             expandable1.emptySubjectList.isVisible = false
             expandable2.emptySubjectList.isVisible = false
@@ -141,6 +143,12 @@ class AttendanceSettingAct : AppCompatActivity(),
             }
         }
 
+        swipeRefreshAttendanceDatabase.setOnRefreshListener {
+            Handler().postDelayed({
+
+            }, 3000)
+        }
+
         startTimeSession.setOnClickListener {
             dateType = "start"
             val datePicker = DatePickerFragment(this)
@@ -157,7 +165,6 @@ class AttendanceSettingAct : AppCompatActivity(),
                 return@setOnClickListener
             }
 
-            val days : ArrayList<String> = arrayListOf()
             val subjectName = SubjectName(
                 name = subName.text.toString(),
                 monday = false,
@@ -192,45 +199,47 @@ class AttendanceSettingAct : AppCompatActivity(),
             for(i in 1..6) {
                 val checkBox = CheckBox(this)
                 checkBox.text = subName.text.toString()
+                val subNameHere = subName.text.toString()
                 when(i) {
                     1 -> {
                         checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
-                            db.SubjectNameDao().updateMonday(isChecked, subName.text.toString())
+                            db.SubjectNameDao().updateMonday(isChecked, subNameHere)
                         }
                         expandable1.fragContent.addView(checkBox)
                     }
                     2 -> {
                         checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
-                            db.SubjectNameDao().updateTuesday(isChecked, subName.text.toString())
+                            db.SubjectNameDao().updateTuesday(isChecked, subNameHere)
                         }
                         expandable2.fragContent.addView(checkBox)
                     }
                     3 -> {
                         checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
-                            db.SubjectNameDao().updateWednesday(isChecked, subName.text.toString())
+                            db.SubjectNameDao().updateWednesday(isChecked, subNameHere)
                         }
                         expandable3.fragContent.addView(checkBox)
                     }
                     4 -> {
                         checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
-                            db.SubjectNameDao().updateThursday(isChecked, subName.text.toString())
+                            db.SubjectNameDao().updateThursday(isChecked, subNameHere)
                         }
                         expandable4.fragContent.addView(checkBox)
                     }
                     5 -> {
                         checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
-                            db.SubjectNameDao().updateFriday(isChecked, subName.text.toString())
+                            db.SubjectNameDao().updateFriday(isChecked, subNameHere)
                         }
                         expandable5.fragContent.addView(checkBox)
                     }
                     6 -> {
                         checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
-                            db.SubjectNameDao().updateSaturday(isChecked, subName.text.toString())
+                            db.SubjectNameDao().updateSaturday(isChecked, subNameHere)
                         }
                         expandable6.fragContent.addView(checkBox)
                     }
                 }
             }
+            subName.setText("")
         }
     }
 
