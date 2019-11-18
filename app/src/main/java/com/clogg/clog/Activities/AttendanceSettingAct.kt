@@ -1,14 +1,12 @@
 package com.clogg.clog.Activities
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.MenuItem
 import android.widget.CheckBox
-import android.widget.CompoundButton
 import android.widget.DatePicker
 import android.widget.Toast
 import androidx.core.view.isVisible
@@ -20,8 +18,6 @@ import com.clogg.clog.R
 import kotlinx.android.synthetic.main.activity_attendance_setting.*
 import kotlinx.android.synthetic.main.content_view.view.*
 import kotlinx.android.synthetic.main.header_view.view.*
-import java.util.*
-import kotlin.collections.ArrayList
 
 class AttendanceSettingAct : AppCompatActivity(),
     DatePickerDialog.OnDateSetListener {
@@ -76,6 +72,152 @@ class AttendanceSettingAct : AppCompatActivity(),
         expandable4.dayName.text = "Thursday"
         expandable5.dayName.text = "Friday"
         expandable6.dayName.text = "Saturday"
+
+        onCreatePerform()
+
+        deleteAttendanceDatabase.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            builder.setMessage("Clear Database ?")
+                .setPositiveButton("Yes"){ dialogInterface, which ->
+                    swipeRefreshAttendanceDatabase.isRefreshing = true
+                    Handler().postDelayed({
+                        db.SubjectNameDao().deleteSubjectName()
+                        afterDeletePerform()
+                    }, 3000)
+                }.setNegativeButton("No") { dialogInterface, which ->
+                    null
+                }
+            val alertDialog = builder.create()
+            alertDialog.show()
+        }
+
+        swipeRefreshAttendanceDatabase.setOnRefreshListener {
+            Handler().postDelayed({
+                swipeRefreshAttendanceDatabase.isRefreshing = false
+            }, 1000)
+        }
+
+        startTimeSession.setOnClickListener {
+            dateType = "start"
+            val datePicker = DatePickerFragment(this)
+            datePicker.show(supportFragmentManager, "Date picker")
+        }
+        endTimeSession.setOnClickListener {
+            dateType = "end"
+            val datePicker = DatePickerFragment(this)
+            datePicker.show(supportFragmentManager, "Date picker")
+        }
+
+        addSubjectP.setOnClickListener {
+            if(subName.text.toString() == "") {
+                return@setOnClickListener
+            }
+
+            val subjectName = SubjectName(
+                name = subName.text.toString(),
+                monday = false,
+                tuesday = false,
+                wednesday = false,
+                thursday = false,
+                friday = false,
+                saturday = false,
+                startDate = "",
+                startMonth = "",
+                startYear = "",
+                endDate = "",
+                endMonth = "",
+                endYear = ""
+            )
+            subjects = db.SubjectNameDao().getSubjects()
+            for(subject in subjects) {
+                if(subject.name == subName.text.toString()) {
+                    Toast.makeText(this,
+                        "Already present",
+                        Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+            }
+
+            db.SubjectNameDao().insertRow(subjectName)
+            expandable1.emptySubjectList.isVisible = false
+            expandable2.emptySubjectList.isVisible = false
+            expandable3.emptySubjectList.isVisible = false
+            expandable4.emptySubjectList.isVisible = false
+            expandable5.emptySubjectList.isVisible = false
+            expandable6.emptySubjectList.isVisible = false
+            expandable1.fragContent.isVisible = true
+            expandable2.fragContent.isVisible = true
+            expandable3.fragContent.isVisible = true
+            expandable4.fragContent.isVisible = true
+            expandable5.fragContent.isVisible = true
+            expandable6.fragContent.isVisible = true
+            for(i in 1..6) {
+                val checkBox = CheckBox(this)
+                checkBox.text = subName.text.toString()
+                val subNameHere = subName.text.toString()
+                when(i) {
+                    1 -> {
+                        checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
+                            db.SubjectNameDao().updateMonday(isChecked, subNameHere)
+                        }
+                        expandable1.fragContent.addView(checkBox)
+                    }
+                    2 -> {
+                        checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
+                            db.SubjectNameDao().updateTuesday(isChecked, subNameHere)
+                        }
+                        expandable2.fragContent.addView(checkBox)
+                    }
+                    3 -> {
+                        checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
+                            db.SubjectNameDao().updateWednesday(isChecked, subNameHere)
+                        }
+                        expandable3.fragContent.addView(checkBox)
+                    }
+                    4 -> {
+                        checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
+                            db.SubjectNameDao().updateThursday(isChecked, subNameHere)
+                        }
+                        expandable4.fragContent.addView(checkBox)
+                    }
+                    5 -> {
+                        checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
+                            db.SubjectNameDao().updateFriday(isChecked, subNameHere)
+                        }
+                        expandable5.fragContent.addView(checkBox)
+                    }
+                    6 -> {
+                        checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
+                            db.SubjectNameDao().updateSaturday(isChecked, subNameHere)
+                        }
+                        expandable6.fragContent.addView(checkBox)
+                    }
+                }
+            }
+            subName.setText("")
+        }
+    }
+
+    private fun afterDeletePerform() {
+        expandable1.emptySubjectList.isVisible = true
+        expandable2.emptySubjectList.isVisible = true
+        expandable3.emptySubjectList.isVisible = true
+        expandable4.emptySubjectList.isVisible = true
+        expandable5.emptySubjectList.isVisible = true
+        expandable6.emptySubjectList.isVisible = true
+        expandable1.fragContent.removeAllViews()
+        expandable2.fragContent.removeAllViews()
+        expandable3.fragContent.removeAllViews()
+        expandable4.fragContent.removeAllViews()
+        expandable5.fragContent.removeAllViews()
+        expandable6.fragContent.removeAllViews()
+
+        startDate.isVisible = false
+        endDate.isVisible = false
+        swipeRefreshAttendanceDatabase.isRefreshing = false
+    }
+
+    private fun onCreatePerform() {
         subjects = db.SubjectNameDao().getSubjects()
         for(subject in subjects) {
             if(subject.startDate != "") {
@@ -141,105 +283,6 @@ class AttendanceSettingAct : AppCompatActivity(),
                     }
                 }
             }
-        }
-
-        swipeRefreshAttendanceDatabase.setOnRefreshListener {
-            Handler().postDelayed({
-
-            }, 3000)
-        }
-
-        startTimeSession.setOnClickListener {
-            dateType = "start"
-            val datePicker = DatePickerFragment(this)
-            datePicker.show(supportFragmentManager, "Date picker")
-        }
-        endTimeSession.setOnClickListener {
-            dateType = "end"
-            val datePicker = DatePickerFragment(this)
-            datePicker.show(supportFragmentManager, "Date picker")
-        }
-
-        addSubjectP.setOnClickListener {
-            if(subName.text.toString() == "") {
-                return@setOnClickListener
-            }
-
-            val subjectName = SubjectName(
-                name = subName.text.toString(),
-                monday = false,
-                tuesday = false,
-                wednesday = false,
-                thursday = false,
-                friday = false,
-                saturday = false,
-                startDate = "",
-                startMonth = "",
-                startYear = "",
-                endDate = "",
-                endMonth = "",
-                endYear = ""
-            )
-            for(subject in subjects) {
-                if(subject.name == subName.text.toString()) {
-                    Toast.makeText(this,
-                        "Already present",
-                        Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
-                }
-            }
-
-            db.SubjectNameDao().insertRow(subjectName)
-            expandable1.emptySubjectList.isVisible = false
-            expandable2.emptySubjectList.isVisible = false
-            expandable3.emptySubjectList.isVisible = false
-            expandable4.emptySubjectList.isVisible = false
-            expandable5.emptySubjectList.isVisible = false
-            expandable6.emptySubjectList.isVisible = false
-            for(i in 1..6) {
-                val checkBox = CheckBox(this)
-                checkBox.text = subName.text.toString()
-                val subNameHere = subName.text.toString()
-                when(i) {
-                    1 -> {
-                        checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
-                            db.SubjectNameDao().updateMonday(isChecked, subNameHere)
-                        }
-                        expandable1.fragContent.addView(checkBox)
-                    }
-                    2 -> {
-                        checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
-                            db.SubjectNameDao().updateTuesday(isChecked, subNameHere)
-                        }
-                        expandable2.fragContent.addView(checkBox)
-                    }
-                    3 -> {
-                        checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
-                            db.SubjectNameDao().updateWednesday(isChecked, subNameHere)
-                        }
-                        expandable3.fragContent.addView(checkBox)
-                    }
-                    4 -> {
-                        checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
-                            db.SubjectNameDao().updateThursday(isChecked, subNameHere)
-                        }
-                        expandable4.fragContent.addView(checkBox)
-                    }
-                    5 -> {
-                        checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
-                            db.SubjectNameDao().updateFriday(isChecked, subNameHere)
-                        }
-                        expandable5.fragContent.addView(checkBox)
-                    }
-                    6 -> {
-                        checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
-                            db.SubjectNameDao().updateSaturday(isChecked, subNameHere)
-                        }
-                        expandable6.fragContent.addView(checkBox)
-                    }
-                }
-            }
-            subName.setText("")
         }
     }
 

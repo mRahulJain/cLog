@@ -14,7 +14,7 @@ interface SubjectNameDao {
     fun getSubjects() : List<SubjectName>
 
     @Query("Delete from SubjectName")
-    fun deleteSubject()
+    fun deleteSubjectName()
 
     @Query("Update SubjectName SET monday = :bool WHERE name = :name")
     fun updateMonday(bool : Boolean, name : String)
