@@ -261,6 +261,7 @@
                     android:layout_height="wrap_content">
                     <LinearLayout
                         android:gravity="center"
+                        android:id="@+id/editAttendanceDatabase"
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:layout_width="wrap_content"
@@ -280,6 +281,7 @@
                     </LinearLayout>
                     <LinearLayout
                         android:gravity="center"
+                        android:id="@+id/deleteAttendanceDatabase"
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:layout_width="wrap_content"
@@ -290,7 +292,6 @@
                             android:src="@drawable/delete_button"
                             android:background="@android:color/transparent"
                             android:layout_width="wrap_content"
-                            android:id="@+id/deleteAttendanceDatabase"
                             android:layout_height="wrap_content"/>
                         <TextView
                             android:paddingTop="6dp"

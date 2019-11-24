@@ -5,14 +5,17 @@ import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.view.MenuItem
+import android.view.*
 import android.widget.CheckBox
 import android.widget.DatePicker
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.chatter.chatter.Database.AppDatabase
 import com.chatter.chatter.Database.SubjectName
+import com.clogg.clog.Adapter.EditAdapter
 import com.clogg.clog.Fragment.DatePickerFragment
 import com.clogg.clog.R
 import kotlinx.android.synthetic.main.activity_attendance_setting.*
@@ -34,6 +37,7 @@ class AttendanceSettingAct : AppCompatActivity(),
                 db.SubjectNameDao().updateStartMonth(month.toString(), subject.name)
                 db.SubjectNameDao().updateStartYear(year.toString(), subject.name)
             }
+            dateType = ""
         } else {
             endDate.text = "$date/${month + 1}/$year"
             endDate.isVisible = true
@@ -43,6 +47,7 @@ class AttendanceSettingAct : AppCompatActivity(),
                 db.SubjectNameDao().updateEndtMonth(month.toString(), subject.name)
                 db.SubjectNameDao().updateEndYear(year.toString(), subject.name)
             }
+            dateType = ""
         }
     }
 
@@ -77,7 +82,7 @@ class AttendanceSettingAct : AppCompatActivity(),
 
         deleteAttendanceDatabase.setOnClickListener {
             val builder = AlertDialog.Builder(this)
-            builder.setMessage("Clear Database ?")
+            builder.setMessage("Clear Database?")
                 .setPositiveButton("Yes"){ dialogInterface, which ->
                     swipeRefreshAttendanceDatabase.isRefreshing = true
                     Handler().postDelayed({
@@ -89,6 +94,26 @@ class AttendanceSettingAct : AppCompatActivity(),
                 }
             val alertDialog = builder.create()
             alertDialog.show()
+        }
+
+        editAttendanceDatabase.setOnClickListener {
+            val subjectDetails = db.SubjectNameDao().getSubjects()
+            val subjects : ArrayList<String> = arrayListOf()
+            for(subject in subjectDetails) {
+                subjects.add(subject!!.name)
+            }
+            val builder =AlertDialog.Builder(this)
+            builder.setTitle("Edit your subject list")
+            val rcView = RecyclerView(this)
+            rcView.adapter = EditAdapter(this, subjects)
+            rcView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+            builder.setView(rcView)
+            builder.create()
+            builder.show()
+                .setOnCancelListener {
+                    afterDeletePerform()
+                    onCreatePerform()
+                }
         }
 
         swipeRefreshAttendanceDatabase.setOnRefreshListener {
@@ -195,6 +220,9 @@ class AttendanceSettingAct : AppCompatActivity(),
                 }
             }
             subName.setText("")
+            Toast.makeText(this,
+                "Added",
+                Toast.LENGTH_SHORT).show()
         }
     }
 

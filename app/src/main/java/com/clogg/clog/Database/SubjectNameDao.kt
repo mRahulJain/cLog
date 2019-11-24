@@ -16,6 +16,9 @@ interface SubjectNameDao {
     @Query("Delete from SubjectName")
     fun deleteSubjectName()
 
+    @Query("Delete from SubjectName where name = :name")
+    fun deleteSubject(name : String)
+
     @Query("Update SubjectName SET monday = :bool WHERE name = :name")
     fun updateMonday(bool : Boolean, name : String)
     @Query("Update SubjectName SET tuesday = :bool WHERE name = :name")
