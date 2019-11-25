@@ -54,12 +54,18 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.lorentzos.flingswipe.SwipeFlingAdapterView
-            android:id="@+id/frame"
-            android:layout_weight="1"
+        <com.yuyakaido.android.cardstackview.CardStackView
+            android:id="@+id/card_stack_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:rotation_degrees="15.5" />
+            android:paddingTop="16dp"
+            android:paddingBottom="6dp"
+            android:paddingLeft="6dp"
+            android:layout_weight="1"
+            android:paddingRight="6dp"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/button_container"
+            android:clipToPadding="false">
+        </com.yuyakaido.android.cardstackview.CardStackView>
         <LinearLayout
             android:layout_margin="10dp"
             android:orientation="horizontal"

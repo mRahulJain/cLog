@@ -42,4 +42,5 @@ dependencies {
     kapt "androidx.room:room-compiler:2.1.0"
     implementation "androidx.room:room-runtime:2.1.0"
     implementation 'com.lorentzos.swipecards:library:1.0.9'
+    implementation "com.yuyakaido.android:card-stack-view:2.3.4"
 }
