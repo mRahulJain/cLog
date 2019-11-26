@@ -14,6 +14,9 @@ interface SubjectDao {
     @Query("Select * from Subject")
     fun getSubjects() : Subject
 
+    @Query("Select attendedClasses from Subject where subject = :subject")
+    fun getClasses(subject : String) : Int
+
     @Query("Delete from Subject")
     fun deleteUser()
 }

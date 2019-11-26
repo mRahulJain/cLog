@@ -4,10 +4,11 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class Subject(
+data class Status(
     @PrimaryKey(autoGenerate = true)
     val id : Long?=null,
-    val subject : String,
-    val totalClasses : Int,
-    val attendedClasses : Int
+    val date : String,
+    val month : String,
+    val year : String,
+    val status : Int
 )

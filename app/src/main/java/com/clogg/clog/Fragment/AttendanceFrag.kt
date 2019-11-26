@@ -17,15 +17,19 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DiffUtil
 import androidx.room.Room
 import com.chatter.chatter.Database.AppDatabase
+import com.chatter.chatter.Database.StatusDatabase
+import com.chatter.chatter.Database.SubjectDatabase
 import com.clogg.clog.Activities.AttendanceSettingAct
 import com.clogg.clog.Adapter.CardStackAdapter
 import com.clogg.clog.Adapter.SpotDiffCallback
+import com.clogg.clog.Database.Status
 import com.clogg.clog.R
 import com.yuyakaido.android.cardstackview.*
 import com.yuyakaido.android.cardstackview.internal.CardStackDataObserver
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_attendance.view.*
 import kotlinx.android.synthetic.main.item.view.*
+import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -40,23 +44,57 @@ class AttendanceFrag : Fragment(), CardStackListener {
             .fallbackToDestructiveMigration()
             .build()
     }
+    val dbStatus: StatusDatabase by lazy {
+        Room.databaseBuilder(
+            requireContext(),
+            StatusDatabase::class.java,
+            "Status.db"
+        ).allowMainThreadQueries()
+            .fallbackToDestructiveMigration()
+            .build()
+    }
+    val dbSubject: SubjectDatabase by lazy {
+        Room.databaseBuilder(
+            requireContext(),
+            SubjectDatabase::class.java,
+            "Subject.db"
+        ).allowMainThreadQueries()
+            .fallbackToDestructiveMigration()
+            .build()
+    }
     val subjectList : ArrayList<String> = arrayListOf()
     lateinit var cardStackView : CardStackView
     lateinit var manager : CardStackLayoutManager
     lateinit var v : View
 
     override fun onCardDragging(direction: Direction, ratio: Float) {
-        Log.d("myCHECK", "${ratio}")
         if(direction == Direction.Left) {
-            view!!.notEmptyDatabase.setBackgroundColor(Color.RED)
+            view!!.notPresent.setImageResource(R.drawable.dislike_red)
+            view!!.yesPresent.setImageResource(R.drawable.like)
         } else {
-            view!!.notEmptyDatabase.setBackgroundColor(Color.GREEN)
+            view!!.yesPresent.setImageResource(R.drawable.like_green)
+            view!!.notPresent.setImageResource(R.drawable.dislike)
         }
     }
 
     override fun onCardSwiped(direction: Direction) {
-        view!!.notEmptyDatabase.setBackgroundColor(Color.WHITE)
-        Log.d("CardStackView", "onCardSwiped: p = ${manager.topPosition}, d = $direction")
+        view!!.yesPresent.setImageResource(R.drawable.like)
+        view!!.notPresent.setImageResource(R.drawable.dislike)
+//        Log.d("CardStackView", "onCardSwiped: p = ${manager.topPosition}, d = $direction")
+//        Log.d("CardStackView", "onCardSwiped: subjectName : ${subjectList[manager.topPosition - 1]}")
+        var classesAttended = 0
+        classesAttended += dbSubject.SubjectDao().getClasses(subjectList[manager.topPosition - 1])
+
+        if(manager.topPosition == subjectList.size) {
+            val calendar = Calendar.getInstance()
+            val status = Status(
+                date = calendar.get(Calendar.DATE).toString(),
+                month = calendar.get(Calendar.MONTH).toString(),
+                year = calendar.get(Calendar.YEAR).toString(),
+                status = 1
+            )
+            dbStatus.StatusDao().insertRow(status)
+        }
     }
 
     override fun onCardRewound() {
@@ -64,7 +102,8 @@ class AttendanceFrag : Fragment(), CardStackListener {
     }
 
     override fun onCardCanceled() {
-        view!!.notEmptyDatabase.setBackgroundColor(Color.WHITE)
+        view!!.yesPresent.setImageResource(R.drawable.like)
+        view!!.notPresent.setImageResource(R.drawable.dislike)
         Log.d("CardStackView", "onCardCanceled: ${manager.topPosition}")
     }
 
@@ -91,7 +130,33 @@ class AttendanceFrag : Fragment(), CardStackListener {
 
         val subjects = db.SubjectNameDao().getSubjects()
         for(subject in subjects) {
-            subjectList.add(subject.name)
+            val calendar = Calendar.getInstance()
+
+            if(calendar.get(Calendar.DAY_OF_WEEK) == 2) {
+                if(subject.monday) {
+                    subjectList.add(subject.name)
+                }
+            } else if(calendar.get(Calendar.DAY_OF_WEEK) == 3) {
+                if(subject.tuesday) {
+                    subjectList.add(subject.name)
+                }
+            } else if(calendar.get(Calendar.DAY_OF_WEEK) == 4) {
+                if(subject.wednesday) {
+                    subjectList.add(subject.name)
+                }
+            } else if(calendar.get(Calendar.DAY_OF_WEEK) == 5) {
+                if(subject.thursday) {
+                    subjectList.add(subject.name)
+                }
+            } else if(calendar.get(Calendar.DAY_OF_WEEK) == 6) {
+                if(subject.friday) {
+                    subjectList.add(subject.name)
+                }
+            } else if(calendar.get(Calendar.DAY_OF_WEEK) == 7) {
+                if(subject.saturday) {
+                    subjectList.add(subject.name)
+                }
+            }
         }
 
         view!!.swipeRefreshHomeAttendance.setOnRefreshListener {
@@ -142,7 +207,6 @@ class AttendanceFrag : Fragment(), CardStackListener {
             manager.setSwipeAnimationSetting(setting)
             cardStackView.swipe()
         }
-
         return view
     }
 }
